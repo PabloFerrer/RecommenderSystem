@@ -73,7 +73,7 @@ class CSVScript():
 
     for i in range(0, len(titles)):
         query = """INSERT INTO movies (title) VALUES (%s)"""
-        cursor.execute(query,[titles[i]])
+        cursor.execute(query, [titles[i]])
         i = i + 1
 
     j = 0
@@ -82,3 +82,5 @@ class CSVScript():
         cursor.execute(query2, [userid[j],movieid[j],rating[j]])
         j = j + 1
     cursor.close()
+    
+    db.commit()
