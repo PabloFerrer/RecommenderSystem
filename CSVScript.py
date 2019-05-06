@@ -10,7 +10,7 @@ class CSVScript():
         host="localhost",
         user="root",
         password="",
-        database="Sistemas_de_recomendacion",
+        database="sistemas_de_recomendacion",
         charset="utf8mb4",
         use_unicode=True
 
@@ -66,7 +66,7 @@ class CSVScript():
             elif bool3 == False:
                 bool3 = True
                 bool = True
-            
+
     cursor = db.cursor()
 
     i = 0

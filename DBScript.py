@@ -17,7 +17,7 @@ class DBScript():
         host="localhost",
         user="root",
         password="",
-        database="Sistemas_de_recomendacion",
+        database="sistemas_de_recomendacion",
         use_unicode=True,
         charset="utf8",
 
