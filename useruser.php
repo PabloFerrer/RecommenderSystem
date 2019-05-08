@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
 	
 	<?php
-		include "userlist.php";
+		include "userfunctions.php";
 		$user_list = user_list();
 	?>
 	
@@ -33,6 +33,12 @@
 			<input type="button" id="recommenduser" value="¡Recomendar!"></input>
 		</form>
 		<div id="resultuser">Muda muda muda</div>
+		
+		<?php
+			$similitude = user_similitude(1);
+			echo $similitude;
+		?>
+		
 	</div>
 </body>
 </html>
