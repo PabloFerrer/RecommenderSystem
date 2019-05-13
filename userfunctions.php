@@ -153,10 +153,12 @@ function ranking($userid, $umbral, $limite){
 	}
 	
 	foreach($trulysimilarusers as $similar){
-		$sql_query = "SELECT movieid FROM ratings WHERE userid = '$similar[0]'";
+		$sql_query = "SELECT movieid FROM ratings WHERE userid = '$similar[0]' AND movieid NOT IN  (SELECT movieid FROM ratings WHERE userid = '$userid')";
 		$result = $con->query($sql_query);
 		while($row = $result->fetch_assoc()){
-			array_push($movielist, $row['movieid']);
+			if (in_array($row['movieid'], $movielist) == false){
+				array_push($movielist, $row['movieid']);
+			}
 		}
 	}
  
@@ -164,9 +166,13 @@ function ranking($userid, $umbral, $limite){
 	
 	foreach($movielist as $movie){
 		$predict = prediction($userid, $movie, $umbral, $similitude);
-		array_push($predictlist, $predict);
+		array_push($predictlist, array($movie, $predict));
 	}
-	return $predictlist;
+	
+	$order = array_column($predictlist, 1);
+	$orderedlist = array_multisort($order, SORT_DESC, $predictlist);
+	
+	return $orderedlist;
 	
 }
 
