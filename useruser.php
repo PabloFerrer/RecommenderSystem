@@ -35,8 +35,11 @@
 		<div id="resultuser">Muda muda muda</div>
 		<?php 
 
-			$similitude = user_similitude(1);
-			echo $similitude[2][1];
+			/*$prediction = prediction(1, 41, 0.8,'null');
+			print_r($prediction);*/
+			
+			$ranking = ranking(1, 0.8, 3);
+			print_r($ranking);
 		?>
 		
 	</div>

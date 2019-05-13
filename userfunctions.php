@@ -19,6 +19,19 @@ function user_list()
 	return $userlist;
 }
 
+function movie_list()
+{
+	include "db.php";
+	$sql_query = "SELECT DISTINCT id from movies";
+	$result = $con->query($sql_query);
+	$movielist = array();
+	while($row = $result->fetch_assoc()){
+		array_push($movielist, $row['id']);
+	}
+	
+	return $movielist;
+}
+
 function user_similitude($userid){
 	include "db.php";
 	$sql_query = "SELECT DISTINCT movieid FROM `ratings` WHERE userid = '$userid'";
@@ -70,6 +83,91 @@ function user_similitude($userid){
 		
 	}
 	return $similitudelist;
+}
+
+function prediction($userid, $movieid, $umbral, $similitude){
+	include "db.php";
+	
+	if($similitude == 'null'){
+		$similitude = user_similitude($userid);
+	}
+	$trulysimilarusers = array();
+	$movierating = array();
+	
+	foreach($similitude as $user){
+		if($user[1] >= $umbral and $user[0] != $userid){
+			array_push($trulysimilarusers, $user);
+		}
+	}
+	
+	foreach($trulysimilarusers as $user){
+		
+		$sql_query = "SELECT rating FROM ratings WHERE movieid='$movieid' AND userid='$user[0]'";
+		$result = $con->query($sql_query);
+		if (mysqli_num_rows($result)!=0) {
+			while($row = $result->fetch_assoc()){
+				array_push($movierating, array($user[0], $movieid, $user[1], $row['rating']));
+			}
+		}
+	}
+	
+	if(empty($movierating)){
+		return "No se puede calcular para los valores dados";
+	}
+	
+	$sql_query = "SELECT AVG(rating) AS rating FROM ratings WHERE userid='$userid'";
+	$result = $con->query($sql_query);
+	while($row = $result->fetch_assoc()){
+		$average = $row['rating'];
+	}
+		
+	$numerador = 0;
+	$denominador = 0;
+	
+	foreach($movierating as $score){
+		$sql_query = "SELECT AVG(rating) AS rating FROM ratings WHERE userid='$score[0]'";
+		$result = $con->query($sql_query);
+		while($row = $result->fetch_assoc()){
+			$average2 = $row['rating'];
+		}
+		
+		$numerador += ($score[2] * ($score[3] - $average2));
+		$denominador += ($score[2]);
+		
+	}
+	
+	$prediccion = $average + $numerador/$denominador;
+	return $prediccion;
+}
+
+function ranking($userid, $umbral, $limite){
+	include "db.php";
+	$movielist = array();
+	
+	$similitude = user_similitude($userid);
+	$trulysimilarusers = array();
+	foreach($similitude as $user){
+		if($user[1] >= $umbral and $user[0] != $userid){
+			array_push($trulysimilarusers, $user);
+		}
+	}
+	
+	foreach($trulysimilarusers as $similar){
+		$sql_query = "SELECT movieid FROM ratings WHERE userid = '$similar[0]'";
+		$result = $con->query($sql_query);
+		while($row = $result->fetch_assoc()){
+			array_push($movielist, $row['movieid']);
+		}
+	}
+ 
+	$predictlist = array();
+	
+	foreach($movielist as $movie){
+		$predict = prediction($userid, $movie, $umbral, $similitude);
+		array_push($predictlist, $predict);
+	}
+	return $predictlist;
+	
 }
 
 ?>
