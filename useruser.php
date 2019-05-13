@@ -34,11 +34,6 @@
 		</form>
 		<div id="resultuser">Muda muda muda</div>
 		
-		<?php
-			$similitude = user_similitude(1);
-			echo $similitude;
-		?>
-		
 	</div>
 </body>
 </html>

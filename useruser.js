@@ -9,9 +9,8 @@ $(document).ready(function () {
 function recommenduseruser() {
 	var result = document.getElementById("resultuser");
 	var selecteduser = document.getElementById("selectuser").value;
-	
-	
-	result.innerHTML = selecteduser;
+	var sim = <?php usersimilitude(selecteduser);?>
+	result.innerHTML = sim;
 	result.style.display = "block";
 
 }
