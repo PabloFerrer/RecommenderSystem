@@ -34,13 +34,7 @@ function movie_list()
 
 function user_similitude($userid){
 	include "db.php";
-	$sql_query = "SELECT DISTINCT movieid FROM `ratings` WHERE userid = '$userid'";
-	$result = $con->query($sql_query);
-	$movielist = array();
-	while($row = $result->fetch_assoc()){
-		array_push($movielist, $row['movieid']);
-	}
-	
+
 	$userlist = user_list();
 	$similitudelist = array();
 	foreach($userlist as $user){
@@ -170,9 +164,25 @@ function ranking($userid, $umbral, $limite){
 	}
 	
 	$order = array_column($predictlist, 1);
-	$orderedlist = array_multisort($order, SORT_DESC, $predictlist);
+	array_multisort($order, SORT_DESC, $predictlist);
+	array_splice($predictlist, $limite);
 	
-	return $orderedlist;
+	$resultlist = array();
+	
+	foreach($predictlist as $predict){
+		$sql_query = "SELECT title FROM movies WHERE mid = '$predict[0]'";
+		$result = $con->query($sql_query);
+		if (mysqli_num_rows($result)!=0) {
+			while($row = $result->fetch_assoc()){
+				array_push($resultlist, array($predict[0], $result, $predict[1]));
+			}
+		}else{
+			array_push($resultlist, array($predict[0], "Título no disponible", $predict[1]));
+		}
+		
+	}
+	
+	return $resultlist;
 	
 }
 
