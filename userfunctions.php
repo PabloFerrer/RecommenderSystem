@@ -170,11 +170,11 @@ function ranking($userid, $umbral, $limite){
 	$resultlist = array();
 	
 	foreach($predictlist as $predict){
-		$sql_query = "SELECT title FROM movies WHERE mid = '$predict[0]'";
+		$sql_query = "SELECT title FROM movies WHERE id = '$predict[0]'";
 		$result = $con->query($sql_query);
 		if (mysqli_num_rows($result)!=0) {
 			while($row = $result->fetch_assoc()){
-				array_push($resultlist, array($predict[0], $result, $predict[1]));
+				array_push($resultlist, array($predict[0], $row['title'], $predict[1]));
 			}
 		}else{
 			array_push($resultlist, array($predict[0], "Título no disponible", $predict[1]));

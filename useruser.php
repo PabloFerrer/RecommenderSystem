@@ -42,7 +42,7 @@
 			print_r($prediction);*/
 			
 			
-			$ranking = ranking(1, 0.5, 5);
+			$ranking = ranking(1, 0.8, 5);
 			print_r($ranking);
 		?>
 		
