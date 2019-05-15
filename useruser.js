@@ -19,7 +19,6 @@ function recommenduseruser() {
 			if (status === "success") {
 				
 				result.innerHTML = data;
-				console.log(data);
 				result.style.display ="block";
             } else {
                 console.log("Error");

@@ -3,8 +3,7 @@
 include "userfunctions.php";
 
 if ((isset($_REQUEST['userid'])) and (isset($_REQUEST['umbral']))and (isset($_REQUEST['limite']))){
-	print_r(user_similitude(1));
-	/*$ranking = ranking($_REQUEST['userid'], $_REQUEST['umbral'], $_REQUEST['limite']);
+	$ranking = ranking($_REQUEST['userid'], $_REQUEST['umbral'], $_REQUEST['limite']);
 	echo "
 			<table>
 				<tr>
@@ -24,7 +23,7 @@ if ((isset($_REQUEST['userid'])) and (isset($_REQUEST['umbral']))and (isset($_RE
 		echo"	
 				
 			</table>
-		";	*/
+		";
 	
 	
 }else{

@@ -33,6 +33,7 @@ function movie_list()
 }
 
 function user_similitude($userid){
+	
 	include "db.php";
 
 	$userlist = user_list();
