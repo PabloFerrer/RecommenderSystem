@@ -9,7 +9,21 @@ $(document).ready(function () {
 function recommenduseruser() {
 	var result = document.getElementById("resultuser");
 	var selecteduser = document.getElementById("selectuser").value;
-	result.innerHTML = selecteduser;
-	result.style.display = "block";
+	var number = document.getElementById("number").value;
+	var threshold = document.getElementById("threshold").value;
+	console.log("Calculating...");
+	$.post(
+		'ranking.php',
+		{ 'userid': selecteduser, 'umbral': threshold, 'limite': number},
+		function(data, status){
+			if (status === "success") {
+				
+				result.innerHTML = data;
+				console.log(data);
+				result.style.display ="block";
+            } else {
+                console.log("Error");
+            }
+		});
 
 }
