@@ -13,6 +13,7 @@
 	<?php
 		include "userfunctions.php";
 		$user_list = user_list();
+		$movie_list = movie_list();
 	?>
 	
     <title>Recomendaciones User-User</title>
@@ -21,23 +22,47 @@
 <body>
 	<div id="content">
 		<h1>Recomendaciones User-User:</h1>
-		<h3>Selecciona un usuario:</h3>
 		
+		<h3>Calcular ranking de películas</h3>
 		<form>
+			<h4>Selecciona un usuario:</h4>
 			<select name="selectuser" id="selectuser">
 				
 				<?php foreach ($user_list as $user){
 					echo "<option value=$user>ID $user</option>";
 				}?>
 			</select>
-			<p>Número de items: <input type="text" id="number" value="5"></input></p>
-			<p>Umbral de similitud: <input type="text" id="threshold" value="0.75"></input></p>
+			<h4>Número de items: <input type="text" id="number" value="5"></input></h4>
+			<h4>Umbral de similitud: <input type="text" id="threshold" value="0.75"></input></h4>
 			<input type="button" id="recommenduser" value="¡Recomendar!"></input>
 		</form>
 		<div id="resultuser">
 			MUDA
 		</div>
 		
+		
+		<form>
+			<h3>Predecir puntuación para una película</h3>
+			<h4>Selecciona un usuario:</h4>
+			<select name="selectuser2" id="selectuser2">
+				<?php foreach ($user_list as $user){
+					echo "<option value=$user>ID $user</option>";
+				}?>
+			</select>
+		
+			<h4>Selecciona una película:</h4>
+		
+			<select name="selectmovie" id="selectmovie">
+				<?php foreach ($movie_list as $movie){
+					echo "<option value=$movie[0]>$movie[0]: $movie[1]</option>";
+				}?>
+			</select>
+			<h4>Umbral de similitud: <input type="text" id="threshold2" value="0.75"></input></h4>
+			<input type="button" id="predict" value="¡Predecir!"></input>
+		</form>
+		<div id="prediction">
+			MUDA
+		</div>
 
 			<!/*$prediction = prediction(1, 41, 0.8,'null');
 			print_r($prediction);*/

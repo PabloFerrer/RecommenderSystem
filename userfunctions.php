@@ -22,11 +22,11 @@ function user_list()
 function movie_list()
 {
 	include "db.php";
-	$sql_query = "SELECT DISTINCT id from movies";
+	$sql_query = "SELECT DISTINCT id, title from movies";
 	$result = $con->query($sql_query);
 	$movielist = array();
 	while($row = $result->fetch_assoc()){
-		array_push($movielist, $row['id']);
+		array_push($movielist, array($row['id'], $row['title']));
 	}
 	
 	return $movielist;
