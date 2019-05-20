@@ -22,7 +22,7 @@
 	<div id="content">
 		<h1>Valoraciones del Usuario 0</h1>
 		
-		<h3>Calcular ranking de películas</h3>
+		<h3>Votar una pelicula</h3>
 		<form>
 			<h4>Selecciona una película:</h4>
 			<select name="selectmovie" id="selectmovie">
@@ -45,7 +45,7 @@
 			MUDA
 		</div>
 		
-		
+		<h3>Calcular el ranking: </h3>
 		<form>
 			<h4>Número de items: <input type="text" id="number" value="5"></input></h4>
 			<h4>Umbral de similitud: <input type="text" id="threshold" value="0.75"></input></h4>
@@ -73,17 +73,6 @@
 		<div id="prediction">
 			MUDA
 		</div>
-			<!/*$prediction = prediction(1, 41, 0.8,'null');
-			print_r($prediction);*/
-			
-			/*$prediction = prediction(1, 5902, 0.8,'null');
-			print_r($prediction);*/
-			
-			
-			/*$ranking = ranking(1, 0.8, 5);
-			print_r($ranking);*/!>
-			
-		
 		
 	</div>
 </body>
