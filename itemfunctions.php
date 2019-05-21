@@ -35,7 +35,7 @@ function movie_list()
 function item_similitude($movieid, $userid){
 	include "db.php";
 	$movielist = array();
-	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 300";
+	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 20";
 	$result = $con->query($query);
 	if (mysqli_num_rows($result)!=0) {			
 			while($row = $result->fetch_assoc()){
@@ -92,10 +92,11 @@ function item_similitude($movieid, $userid){
 				while($row = $result3->fetch_assoc()){
 					$rating = $row['rating'];	
 					array_push($similitudelist, array($movie,$similitude,$rating));
+					return $similitudelist;
 				}
 			}
 	}
-	return $similitudelist;	
+	//return $similitudelist;	
 }
 
 function prediction($userid,$moveid,$umbral){
@@ -103,13 +104,12 @@ function prediction($userid,$moveid,$umbral){
 	$result = array();
 	$prediction = 0;
 	$similitudes = item_similitude($movieid,$userid);
-	$movies = $similitudes;
 	$numerador = 0;
 	$denominador = 0;
-	foreach($movies as $movie){
-		if($movie[1]>$umbral){
-			$numerador+=($movie[1])*($movie[2]);
-			$denominador+=($movie[1]);
+	foreach($similitudes as $sim){
+		if($sim[1]>=$umbral){
+			$numerador+=($sim[1])*($sim[2]);
+			$denominador+=($sim[1]);
 		}
 	}
 	$prediction = $numerador/$denominador;
