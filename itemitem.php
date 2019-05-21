@@ -45,7 +45,7 @@
 			/*$ranking = ranking(1, 0.8, 5);
 			print_r($ranking);*/
 			
-			$list = item_similitude(1);
+			$list = item_similitude(1,1);
 			print_r($list);
 		?>
 		

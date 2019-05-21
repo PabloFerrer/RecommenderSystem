@@ -35,7 +35,7 @@ function movie_list()
 function item_similitude($movieid, $userid){
 	include "db.php";
 	$movielist = array();
-	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC";
+	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 300";
 	$result = $con->query($query);
 	if (mysqli_num_rows($result)!=0) {			
 			while($row = $result->fetch_assoc()){
@@ -95,29 +95,40 @@ function item_similitude($movieid, $userid){
 				}
 			}
 	}
-	return $similitudelist[1];	
+	return $similitudelist;	
 }
 
-function prediction($userid,$moveid,$umbral,$prediction){
+function prediction($userid,$moveid,$umbral){
 	include "db.php";
-	$similitudes = item_similitude($movieid);
+	$result = array();
+	$prediction = 0;
+	$similitudes = item_similitude($movieid,$userid);
 	$movies = $similitudes;
-	$coincidentmovies = array();
+	$numerador = 0;
+	$denominador = 0;
+	foreach($movies as $movie){
+		if($movie[1]>$umbral){
+			$numerador+=($movie[1])*($movie[2]);
+			$denominador+=($movie[1]);
+		}
+	}
+	$prediction = $numerador/$denominador;
+	return array_push($result, array($movieid,$prediction));
+
+	/*$coincidentmovies = array();
 	$query = "SELECT movieid AS movieid,rating AS rating FROM `ratings` WHERE userid = '$userid'";
 	$result = $con->query($sql_query);
 	while($row = $result->fetch_assoc()){
 		array_push($coincidentmovies, array($row['movieid'], $row['rating']));			
 	}
-	$numerador = 0;
-	$denominador = 0;
-	foreach ($movies as $movie ) {
+	foreach ($movies as $movie ) { CREO QUE NO LO NECESITO PERO POR SI ACASO
 		foreach($coincidentmovies as $mov){
 			if($movie[0]==$mov[0]){
 
 			}
 		}
 		
-	}
+	}*/
 
 		
 	}
