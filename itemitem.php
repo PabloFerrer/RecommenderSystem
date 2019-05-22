@@ -45,7 +45,7 @@
 			/*$ranking = ranking(1, 0.8, 5);
 			print_r($ranking);*/
 			
-			$list = prediction(1,1,0.3);
+			$list = prediction(1,2,0.3);
 			print_r($list);
 		?>
 		
