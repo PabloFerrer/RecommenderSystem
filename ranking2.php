@@ -1,6 +1,6 @@
 <?php
 
-include "userfunctions.php";
+include "itemfunctions.php";
 
 if ((isset($_REQUEST['userid'])) and (isset($_REQUEST['umbral']))and (isset($_REQUEST['limite']))){
 	if((! ctype_digit(strval($_REQUEST['limite']))) or ($_REQUEST['limite'] === '0')){

@@ -153,7 +153,7 @@ function ranking($userid,$umbral,$limit){
 					$title = $row['title'];
 				}	
 
-				array_push($predictions, array($mov,$pred,$title));
+				array_push($predictions, array($mov,$title,$pred));
 
 				$counter += 1;
 			}
