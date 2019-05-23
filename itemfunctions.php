@@ -35,7 +35,7 @@ function movie_list()
 function item_similitude($movieid, $userid){
 	include "db.php";
 	$movielist = array();
-	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 200";
+	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 20";
 	$result = $con->query($query);
 	if (mysqli_num_rows($result)!=0) {			
 			while($row = $result->fetch_assoc()){
@@ -81,11 +81,9 @@ function item_similitude($movieid, $userid){
 			$denominador2+=pow($ra[2] - $average,2);
 		}
 
-		if($numerador == 0){
-			$similitude = $numerador;
-		}else{
+		if($numerador!=0){
 			$similitude = $numerador/(sqrt($denominador1)*sqrt($denominador2));
-		}
+		
 		$query3 = "SELECT rating FROM ratings WHERE movieid = $movie AND userid = $userid";
 		$result3 = $con->query($query3);
 		if (mysqli_num_rows($result3)!=0){
@@ -94,6 +92,7 @@ function item_similitude($movieid, $userid){
 					array_push($similitudelist, array($movie,$similitude,$rating));
 				}
 			}
+		}
 	}
 	return $similitudelist;	
 }
@@ -103,6 +102,9 @@ function prediction($userid,$movieid,$umbral){
 	$result = array();
 	$prediction = 0;
 	$similitudes = item_similitude($movieid,$userid);
+	if(empty($similitudes)){
+		return "No se puede calcular para los valores dados";
+	}
 	$numerador = 0;
 	$denominador = 0;
 	foreach($similitudes as $sim){
@@ -111,28 +113,53 @@ function prediction($userid,$movieid,$umbral){
 			$denominador+=($sim[1]);
 		}
 	}
-	$prediction = $numerador/$denominador;
-	array_push($result, array($movieid, $prediction));
-	return $result;
-
-	/*$coincidentmovies = array();
-	$query = "SELECT movieid AS movieid,rating AS rating FROM `ratings` WHERE userid = '$userid'";
-	$result = $con->query($sql_query);
-	while($row = $result->fetch_assoc()){
-		array_push($coincidentmovies, array($row['movieid'], $row['rating']));			
+	if($numerador == 0 or $denominador == 0){
+		return "No se puede calcular para los valores dados";
+	}else{
+		$prediction = $numerador/$denominador;
 	}
-	foreach ($movies as $movie ) { CREO QUE NO LO NECESITO PERO POR SI ACASO
-		foreach($coincidentmovies as $mov){
-			if($movie[0]==$mov[0]){
 
+	array_push($result, array($movieid, $prediction));
+	return $result;	
+	}
+
+function ranking($userid,$umbral,$limit){
+	include "db.php";
+	$notseenmovies = array();
+	$predictions = array();
+	$counter = 0;
+	$userquery = "SELECT DISTINCT movieid FROM ratings WHERE userid != '$userid' AND movieid NOT IN  (SELECT movieid FROM ratings WHERE userid = '$userid') ORDER BY movieid ASC LIMIT 100";
+	$result = $con->query($userquery);
+	while($row = $result->fetch_assoc()){
+		$movie = $row['movieid'];	
+		array_push($notseenmovies, $movie);
+	}
+	foreach($notseenmovies as $mov){
+		$query = "SELECT title FROM movies WHERE id = '$mov'";
+		$res = $con->query($query);
+		while($row = $res->fetch_assoc()){
+			$title = $row['title'];
+		}
+
+		if($counter == $limit){
+			return $predictions;
+		}
+		$pred = prediction($userid,$mov,$umbral);
+		if(is_string($pred[1])){
+			$pred = 'nada';
+		}else{
+			if($pred[1] >= 5){
+				array_push($predictions, array($pred[1],$title));
+				$counter += 1;
 			}
 		}
-		
-	}*/
-
-		
 	}
+	return $predictions;
 
+
+
+}
+	
 
 
 ?>

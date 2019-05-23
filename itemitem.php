@@ -35,17 +35,9 @@
 		<div id="resultuser">Muda muda muda</div>
 		<?php 
 
-			/*$prediction = prediction(1, 41, 0.8,'null');
-			print_r($prediction);*/
-			
-			/*$prediction = prediction(1, 5902, 0.8,'null');
-			print_r($prediction);*/
-			
-			
-			/*$ranking = ranking(1, 0.8, 5);
-			print_r($ranking);*/
-			
-			$list = prediction(1,2,0.3);
+			/*$list = prediction(1,32,0.3);
+			print_r($list);*/
+			$list = ranking(1,0.3,5);
 			print_r($list);
 		?>
 		
