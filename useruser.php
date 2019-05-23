@@ -9,11 +9,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" type="text/css">
 	
 	<?php
 		include "userfunctions.php";
 		$user_list = user_list();
-		$movie_list = movie_list();
+		$movie_list = movie_list(); 
 	?>
 	
     <title>Recomendaciones User-User</title>

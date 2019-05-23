@@ -1,0 +1,24 @@
+.actions {
+	width: 50%;
+	margin: 0 auto;
+}
+h1{
+	font-family: fantasy;
+	font-style: bold;
+}
+.separacion{
+	padding-top: 7%;
+}
+h3{
+	font-family: fantasy;
+	padding-top: 5%;
+}
+body{
+	padding-top: 5%;
+	background-color: #9933ff;
+}
+.bloque1{
+	width: 50%;
+	margin: 0 auto;
+}
+}

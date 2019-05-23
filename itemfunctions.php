@@ -19,14 +19,16 @@ function user_list()
 	return $userlist;
 }
 
+
+
 function movie_list()
 {
 	include "db.php";
-	$sql_query = "SELECT DISTINCT movieid FROM `ratings` LIMIT 600"; #AQUI HE LIMITADO JAVI PARA NO TIRARME HORA Y MEDIA POR TRY
+	$sql_query = "SELECT DISTINCT id, title from movies";
 	$result = $con->query($sql_query);
 	$movielist = array();
 	while($row = $result->fetch_assoc()){
-		array_push($movielist, $row['movieid']);
+		array_push($movielist, array($row['id'], $row['title']));
 	}
 	
 	return $movielist;
@@ -119,8 +121,8 @@ function prediction($userid,$movieid,$umbral){
 		$prediction = $numerador/$denominador;
 	}
 
-	array_push($result, array($movieid, $prediction));
-	return $result;	
+
+	return $prediction;	
 	}
 
 function ranking($userid,$umbral,$limit){
@@ -135,28 +137,32 @@ function ranking($userid,$umbral,$limit){
 		array_push($notseenmovies, $movie);
 	}
 	foreach($notseenmovies as $mov){
-		$query = "SELECT title FROM movies WHERE id = '$mov'";
-		$res = $con->query($query);
-		while($row = $res->fetch_assoc()){
-			$title = $row['title'];
-		}
-
 		if($counter == $limit){
 			return $predictions;
 		}
 		$pred = prediction($userid,$mov,$umbral);
-		if(is_string($pred[1])){
+
+		if(is_string($pred)){
 			$pred = 'nada';
-		}else{
-			if($pred[1] >= 5){
-				array_push($predictions, array($pred[1],$title));
+		}else{		
+
+			if($pred >= 4){
+				$query = "SELECT title FROM movies WHERE id = '$mov'";
+				$res = $con->query($query);
+				while($row = $res->fetch_assoc()){
+					$title = $row['title'];
+				}	
+
+				array_push($predictions, array($mov,$pred,$title));
+
 				$counter += 1;
 			}
 		}
 	}
+	$order = array_column($predictions, 0);
+	array_multisort($order, SORT_DESC, $predictions);
+	array_splice($predictions, $limit);
 	return $predictions;
-
-
 
 }
 	

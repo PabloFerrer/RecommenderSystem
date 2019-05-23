@@ -9,10 +9,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" type="text/css">
 	
 	<?php
 		include "itemfunctions.php";
 		$user_list = user_list();
+		$movie_list = movie_list();
 	?>
 	
     <title>Recomendaciones Item-Item</title>
@@ -21,26 +23,46 @@
 <body>
 	<div id="content">
 		<h1>Recomendaciones Item-Item:</h1>
-		<h3>Selecciona un usuario:</h3>
-		
+
+		<h3>Calcular ranking de películas</h3>
 		<form>
+			<h4>Selecciona un usuario:</h4>
 			<select name="selectuser" id="selectuser">
 				
 				<?php foreach ($user_list as $user){
 					echo "<option value=$user>ID $user</option>";
 				}?>
 			</select>
+			<h4>Número de items: <input type="text" id="number" value="5"></input></h4>
+			<h4>Umbral de similitud: <input type="text" id="threshold" value="0.75"></input></h4>
 			<input type="button" id="recommenduser" value="¡Recomendar!"></input>
 		</form>
-		<div id="resultuser">Muda muda muda</div>
-		<?php 
+		<div id="resultuser">
+			MUDA
+		</div>
 
-			/*$list = prediction(1,32,0.3);
-			print_r($list);*/
-			$list = ranking(1,0.3,5);
-			print_r($list);
-		?>
+		<form>
+			<h3>Predecir puntuación para una película</h3>
+			<h4>Selecciona un usuario:</h4>
+			<select name="selectuser2" id="selectuser2">
+				<?php foreach ($user_list as $user){
+					echo "<option value=$user>ID $user</option>";
+				}?>
+			</select>
 		
+			<h4>Selecciona una película:</h4>
+		
+			<select name="selectmovie" id="selectmovie">
+				<?php foreach ($movie_list as $movie){
+					echo "<option value=$movie[0]>$movie[0]: $movie[1]</option>";
+				}?>
+			</select>
+			<h4>Umbral de similitud: <input type="text" id="threshold2" value="0.75"></input></h4>
+			<input type="button" id="predict" value="¡Predecir!"></input>
+		</form>
+		<div id="prediction">
+			MUDA
+		</div>	
 	</div>
 </body>
 </html>
