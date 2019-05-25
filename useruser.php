@@ -21,7 +21,9 @@
 	<script src="useruser.js"></script>
 </head>
 <body>
-	<div id="content">
+	<div class="container-fluid row">
+	<div class="col-md-2"></div>
+	<div id="content" class="col-md-8">
 		<h1>Recomendaciones User-User:</h1>
 		
 		<h3>Calcular ranking de películas</h3>
@@ -64,19 +66,8 @@
 		<div id="prediction">
 			MUDA
 		</div>
-
-			<!/*$prediction = prediction(1, 41, 0.8,'null');
-			print_r($prediction);*/
-			
-			/*$prediction = prediction(1, 5902, 0.8,'null');
-			print_r($prediction);*/
-			
-			
-			/*$ranking = ranking(1, 0.8, 5);
-			print_r($ranking);*/!>
-			
-		
-		
 	</div>
+	<div class="col-md-2">dasds</div>
+</div>
 </body>
 </html>
