@@ -37,7 +37,7 @@ function movie_list()
 function item_similitude($movieid, $userid){
 	include "db.php";
 	$movielist = array();
-	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 50";
+	$query = "SELECT DISTINCT rating2.movieid as movieid FROM ratings as rating1, ratings as rating2 where rating1.movieid='$movieid' and rating1.userid = rating2.userid ORDER BY `rating2`.`movieid` ASC LIMIT 20";
 	$result = $con->query($query);
 	if (mysqli_num_rows($result)!=0) {			
 			while($row = $result->fetch_assoc()){
@@ -131,7 +131,7 @@ function ranking($userid,$umbral,$limit){
 	$predictions = array();
 	$counter = 0;
 	$userquery = "SELECT DISTINCT movieid FROM ratings WHERE userid != '$userid' AND movieid NOT IN 
-				(SELECT movieid FROM ratings WHERE userid = '$userid') ORDER BY movieid ASC LIMIT 100";
+				(SELECT movieid FROM ratings WHERE userid = '$userid') ORDER BY movieid ASC LIMIT 50";
 	$result = $con->query($userquery);
 	while($row = $result->fetch_assoc()){
 		$movie = $row['movieid'];	
@@ -151,10 +151,13 @@ function ranking($userid,$umbral,$limit){
 				$pred = 5;
 				$query = "SELECT title FROM movies WHERE id = '$mov'";
 				$res = $con->query($query);
-				while($row = $res->fetch_assoc()){
-					$title = $row['title'];
-				}	
-
+				if (mysqli_num_rows($res)!=0){
+					while($row = $res->fetch_assoc()){
+						$title = $row['title'];
+					}	
+				}else{
+					$title = 'Título no disponible.';
+				}
 				array_push($predictions, array($mov,$title,$pred));
 
 				$counter += 1;
