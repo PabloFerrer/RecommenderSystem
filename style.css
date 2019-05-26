@@ -4,7 +4,9 @@ h1{
 	font-family: fantasy;
 	font-style: bold;
 }
-
+.selector{
+	background-color: rgb(112, 76, 170) !important;
+}
 .separacion{
 	padding-top: 7%;
 }

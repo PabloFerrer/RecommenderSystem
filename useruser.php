@@ -25,8 +25,9 @@
 	<div class="col-md-2"></div>
 	<div id="content" class="col-md-8">
 		<h1>Recomendaciones User-User:</h1>
-		
-		<h3>Calcular ranking de películas</h3>
+		<div class="panel selector">
+		<h3 class="panel-heading">Calcular ranking de películas</h3>
+		<div class="panel-body">
 		<form>
 			<h4>Selecciona un usuario:</h4>
 			<select class="form-control" name="selectuser" id="selectuser">
@@ -39,11 +40,14 @@
 			<h4>Umbral de similitud: <input class="form-control" type="text" id="threshold" value="0.75"></input></h4>
 			<input class="btn btn-info" type="button" id="recommenduser" value="¡Recomendar!"></input>
 		</form>
-		<div class="prediction" id="resultuser"></div>
+		<div id="resultuser"></div>
+		</div>
+		</div>
 		
-		
+		<div class="panel selector">
 		<form>
-			<h3>Predecir puntuación para una película</h3>
+			<h3 class="panel-heading">Predecir puntuación para una película</h3>
+			<div class="panel-body">
 			<h4>Selecciona un usuario:</h4>
 			<select class="form-control" name="selectuser2" id="selectuser2">
 				<?php foreach ($user_list as $user){
@@ -61,7 +65,9 @@
 			<h4>Umbral de similitud: <input class="form-control" type="text" id="threshold2" value="0.75"></input></h4>
 			<input class="btn btn-info" type="button" id="predict" value="¡Predecir!"></input>
 		</form>
-		<div class="prediction" id="prediction"></div>
+		<div  id="prediction"></div>
+		</div>
+		</div>
 	</div>
 	<div class="col-md-2"></div>
 </div>
