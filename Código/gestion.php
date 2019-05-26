@@ -9,7 +9,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 	
 	<?php
 		include "userfunctions.php";
@@ -17,7 +17,7 @@
 	?>
 	
     <title>Mi Recomendador</title>
-	<script src="gestion.js"></script>
+	<script src="js/gestion.js"></script>
 </head>
 <body>
 	<div class="container-fluid row separacion2">

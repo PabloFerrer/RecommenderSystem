@@ -9,7 +9,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 	
 	<?php
 		include "itemfunctions.php";
@@ -18,7 +18,7 @@
 	?>
 	
     <title>Recomendaciones Item-Item</title>
-	<script src="itemitem.js"></script>
+	<script src="js/itemitem.js"></script>
 </head>
 <body>
 
