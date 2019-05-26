@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<div class="container-fluid row separacion2">
+<div class="container-fluid row ">
 	<div class="col-md-2"></div>
 	<div id="content" class="col-md-8">
 		<h1>Recomendaciones Item-Item:</h1>
