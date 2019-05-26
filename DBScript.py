@@ -5,9 +5,6 @@ class DBScript():
         host="localhost",
         user="root",
         password="",
-        use_unicode=True,
-        charset="utf8",
-
     )
     cursor = db.cursor()
     cursor.execute("CREATE DATABASE IF NOT EXISTS Sistemas_de_recomendacion")
@@ -23,9 +20,15 @@ class DBScript():
 
     )
     cursor2 = db.cursor()
-    cursor2.execute("ALTER DATABASE Sistemas_de_recomendacion CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci'")
+    cursor2.execute("ALTER DATABASE Sistemas_de_recomendacion CHARACTER SET"  
+                    " 'utf8' COLLATE 'utf8_unicode_ci'")
+    
     cursor2.execute("CREATE TABLE IF NOT EXISTS movies (id INT AUTO_INCREMENT PRIMARY KEY,"
                    " title VARCHAR(255))")
-    cursor2.execute("CREATE TABLE IF NOT EXISTS ratings (userid INT, movieid INT, rating FLOAT)")
+    
+    cursor2.execute("CREATE TABLE IF NOT EXISTS ratings (userid INT, movieid INT, "
+                    "rating FLOAT, FOREIGN KEY(movieid) REFERENCES movies(id))")
 
     cursor2.close()
+        
+    

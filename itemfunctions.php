@@ -130,7 +130,8 @@ function ranking($userid,$umbral,$limit){
 	$notseenmovies = array();
 	$predictions = array();
 	$counter = 0;
-	$userquery = "SELECT DISTINCT movieid FROM ratings WHERE userid != '$userid' AND movieid NOT IN  (SELECT movieid FROM ratings WHERE userid = '$userid') ORDER BY movieid ASC LIMIT 100";
+	$userquery = "SELECT DISTINCT movieid FROM ratings WHERE userid != '$userid' AND movieid NOT IN 
+				(SELECT movieid FROM ratings WHERE userid = '$userid') ORDER BY movieid ASC LIMIT 100";
 	$result = $con->query($userquery);
 	while($row = $result->fetch_assoc()){
 		$movie = $row['movieid'];	
@@ -146,7 +147,8 @@ function ranking($userid,$umbral,$limit){
 			$pred = 'nada';
 		}else{		
 
-			if($pred >= 4){
+			if($pred >= 5){
+				$pred = 5;
 				$query = "SELECT title FROM movies WHERE id = '$mov'";
 				$res = $con->query($query);
 				while($row = $res->fetch_assoc()){

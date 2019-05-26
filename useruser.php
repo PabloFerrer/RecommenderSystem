@@ -29,25 +29,23 @@
 		<h3>Calcular ranking de películas</h3>
 		<form>
 			<h4>Selecciona un usuario:</h4>
-			<select name="selectuser" id="selectuser">
+			<select class="form-control" name="selectuser" id="selectuser">
 				
 				<?php foreach ($user_list as $user){
 					echo "<option value=$user>ID $user</option>";
 				}?>
 			</select>
-			<h4>Número de items: <input type="text" id="number" value="5"></input></h4>
-			<h4>Umbral de similitud: <input type="text" id="threshold" value="0.75"></input></h4>
-			<input type="button" id="recommenduser" value="¡Recomendar!"></input>
+			<h4>Número de items: <input class="form-control" type="text" id="number" value="5"></input></h4>
+			<h4>Umbral de similitud: <input class="form-control" type="text" id="threshold" value="0.75"></input></h4>
+			<input class="btn btn-info" type="button" id="recommenduser" value="¡Recomendar!"></input>
 		</form>
-		<div id="resultuser">
-			MUDA
-		</div>
+		<div class="prediction" id="resultuser"></div>
 		
 		
 		<form>
 			<h3>Predecir puntuación para una película</h3>
 			<h4>Selecciona un usuario:</h4>
-			<select name="selectuser2" id="selectuser2">
+			<select class="form-control" name="selectuser2" id="selectuser2">
 				<?php foreach ($user_list as $user){
 					echo "<option value=$user>ID $user</option>";
 				}?>
@@ -55,19 +53,17 @@
 		
 			<h4>Selecciona una película:</h4>
 		
-			<select name="selectmovie" id="selectmovie">
+			<select class="form-control" name="selectmovie" id="selectmovie">
 				<?php foreach ($movie_list as $movie){
 					echo "<option value=$movie[0]>$movie[0]: $movie[1]</option>";
 				}?>
 			</select>
-			<h4>Umbral de similitud: <input type="text" id="threshold2" value="0.75"></input></h4>
-			<input type="button" id="predict" value="¡Predecir!"></input>
+			<h4>Umbral de similitud: <input class="form-control" type="text" id="threshold2" value="0.75"></input></h4>
+			<input class="btn btn-info" type="button" id="predict" value="¡Predecir!"></input>
 		</form>
-		<div id="prediction">
-			MUDA
-		</div>
+		<div class="prediction" id="prediction"></div>
 	</div>
-	<div class="col-md-2">dasds</div>
+	<div class="col-md-2"></div>
 </div>
 </body>
 </html>

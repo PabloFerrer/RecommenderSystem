@@ -1,4 +1,3 @@
-import csv
 import mysql.connector
 import pandas as pd
 
@@ -15,6 +14,7 @@ class CSVScript():
         use_unicode=True
 
     )
+    
     titles = []
     userid = []
     movieid = []
